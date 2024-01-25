@@ -74,7 +74,7 @@ class Server:
             isinstance(index, int) and
             index in range(len(dataset)),
             "Start index is out of range."
-        )
+            )
         assert page_size > 0, "Page size should be greater than 0."
 
         data = []
