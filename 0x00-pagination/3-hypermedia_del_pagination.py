@@ -70,12 +70,7 @@ class Server:
         - Dict: Hypermedia pagination information.
         """
         dataset = self.indexed_dataset()
-        assert (
-            isinstance(index, int) and
-            index in range(len(dataset)),
-            "Start index is out of range."
-            )
-        assert page_size > 0, "Page size should be greater than 0."
+        assert type(index) is int and index in range(len(dataset))
 
         data = []
         current_index, end_index = index, index + page_size
