@@ -4,7 +4,7 @@
 """
 
 import csv
-from typing import List
+from typing import List, Tuple
 from typing import Optional
 
 
