@@ -49,7 +49,8 @@ class Server:
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """
-        Returns the appropriate page of the dataset based on pagination parameters.
+        Returns the appropriate page of the dataset based on pagination
+        parameters.
 
         Args:
         - page (int): The current page number (1-indexed).
@@ -60,14 +61,20 @@ class Server:
         """
         assert isinstance(page, int) and isinstance(
             page_size, int), "Page and page_size should be integers."
-        assert page > 0 and page_size > 0, "Page and page_size should be greater than 0."
+        assert page > 0 and page_size > 0, (
+            "Page and page_size should be greater than 0."
+        )
 
         start_index, end_index = index_range(page, page_size)
         dataset = self.dataset()
 
         return dataset[start_index:end_index]
 
-    def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict[str, Optional[Union[int, List[List], None]]]:
+    def get_hyper(
+        self,
+        page: int = 1,
+        page_size: int = 10
+    ) -> Dict[str, Optional[Union[int, List[List], None]]]:
         """
         Returns a dictionary containing hypermedia pagination information.
 
@@ -76,7 +83,8 @@ class Server:
         - page_size (int): The number of items per page.
 
         Returns:
-        - Dict[str, Optional[Union[int, List[List], None]]]: Hypermedia pagination information.
+        - Dict[str, Optional[Union[int, List[List], None]]]: Hypermedia
+        pagination information.
         """
         page_data = self.get_page(page, page_size)
         total_pages = math.ceil(len(self.dataset()) / page_size)
