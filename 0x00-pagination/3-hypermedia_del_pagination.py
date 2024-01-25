@@ -61,7 +61,8 @@ class Server:
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
         """
-        Returns a dictionary with hypermedia pagination information based on index.
+        Returns a dictionary with hypermedia
+        pagination information based on index.
 
         Args:
         - index (int): The current start index of the return page.
