@@ -7,7 +7,6 @@ import csv
 import math
 from typing import List, Optional, Tuple, Dict
 
-
 def index_range(page: int, page_size: int) -> Tuple[int, int]:
     """
     Returns a tuple of start index and end index for pagination.
@@ -26,7 +25,6 @@ def index_range(page: int, page_size: int) -> Tuple[int, int]:
     end_index = start_index + page_size
 
     return start_index, end_index
-
 
 class Server:
     """Server class to paginate a database of popular baby names.
@@ -61,32 +59,38 @@ class Server:
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
         """
-        Returns a dictionary with hypermedia
-        pagination information based on index.
+        Returns a dictionary with hypermedia pagination information
+        based on the start index.
 
         Args:
-        - index (int): The current start index of the return page.
+        - start_index (int): The current start index of the return page.
         - page_size (int): The number of items per page.
 
         Returns:
         - Dict: Hypermedia pagination information.
         """
-        assert index is None or (index >= 0 and index < len(
-            self.__indexed_dataset)), "Index is out of range."
+        dataset = self.indexed_dataset()
+        assert (
+            isinstance(index, int) and
+            index in range(len(dataset)),
+            "Start index is out of range."
+        )
         assert page_size > 0, "Page size should be greater than 0."
 
-        start_index = index if index is not None else 0
-        end_index = start_index + page_size
-        dataset = self.__indexed_dataset
+        data = []
+        current_index, end_index = index, index + page_size
 
-        page_data = [dataset[i]
-                     for i in range(start_index, min(end_index, len(dataset)))]
-
-        next_index = end_index if end_index < len(dataset) else None
+        while current_index < end_index:
+            if current_index in dataset.keys():
+                data.append(dataset[current_index])
+            else:
+                end_index += 1
+            current_index += 1
 
         return {
-            "index": start_index,
-            "data": page_data,
-            "page_size": page_size,
-            "next_index": next_index
+            "index": index,
+            "data": data,
+            "page_size": len(data),
+            "next_index": end_index
         }
+    
