@@ -10,7 +10,7 @@ import os
 app = Flask(__name__)
 
 
-class Config(object):
+class Config:
     """Config class for setting up Babel"""
     LANGUAGES = ["en", "fr"]
     BABEL_DEFAULT_LOCALE = "en"
