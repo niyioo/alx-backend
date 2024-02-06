@@ -30,16 +30,19 @@ users = {
 }
 
 
-def get_user(user_id):
+def get_user():
     """Return user dictionary based on user ID"""
-    return users.get(user_id)
+    id = request.args.get('login_as', None)
+    if id is not None and int(id) in users.keys():
+        return users.get(int(id))
+    return None
 
 
 @app.before_request
 def before_request():
     """Set user in global flask.g object"""
-    user_id = request.args.get('login_as')
-    g.user = get_user(int(user_id)) if user_id else None
+    user = get_user()
+    g.user = user
 
 
 @babel.localeselector
