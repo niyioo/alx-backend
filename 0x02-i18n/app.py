@@ -79,7 +79,10 @@ def get_timezone():
 @app.route('/')
 def index():
     """Render index.html template"""
-    current_time = datetime.now(pytz.timezone(get_timezone())).strftime('%b %d, %Y, %I:%M:%S %p')
+    # Get the current time in the inferred time zone
+    time_zone = pytz.timezone(get_timezone())
+    current_time = datetime.now(time_zone).strftime('%b %d, %Y, %I:%M:%S %p')
+    
     return render_template('index.html', current_time=current_time)
 
 
