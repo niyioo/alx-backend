@@ -4,7 +4,7 @@ Basic Flask app with Babel setup, locale selector, and parametrized templates
 """
 
 from flask import Flask, render_template
-from flask_babel import Babel, _
+from flask_babel import Babel
 
 app = Flask(__name__)
 
